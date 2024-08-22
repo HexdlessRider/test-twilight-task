@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="text-foreground relative flex h-screen flex-col">
       <Header />
-      <main className="bg-background hidden h-[80%] shrink-0 grow flex-col overflow-y-auto md:flex">
+      <main className="bg-background  h-[80%] shrink-0 grow flex-col overflow-y-auto flex">
         <div className="flex h-full bg-deep-white">
           <DashboardSidebar navItems={navItems} />
           <div className="w-full bg-white">{children}</div>

@@ -3,8 +3,9 @@ import {
   HttpException,
   HttpStatus,
   Get,
-  Param,
   Query,
+  ParseIntPipe,
+  DefaultValuePipe,
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import axios from 'axios';
@@ -17,13 +18,18 @@ export class AppController {
   private readonly apiUrl = 'https://api3.twilightcyber.com/infections/_search';
 
   @Get('/domain-info')
-  async getDomain(@Query('domain') domain: string) {
+  async getDomain(
+    @Query('domain') domain: string,
+    @Query('size', new DefaultValuePipe(32), ParseIntPipe) size: number,
+  ) {
+    // Default value of 5 is used if size is not provided or invalid
+
     try {
       const response = await axios.post(
         `${this.apiUrl}`,
         {
           domains: [domain],
-          size: 2,
+          size: size,
         },
         {
           headers: {
